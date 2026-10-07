@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNED CAFE - FGNMHS SHS</title>
+    <meta name="description" content="SNED CAFE - FGNMHS SHS Kiosk Application">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons for modern icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- html2pdf.js for Receipt Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation / Header -->
+    <header class="header">
+        <div class="header-container">
+            <h1 class="brand-title">SNED CAFE <span>FGNMHS SHS</span></h1>
+            <nav class="nav-menu">
+                <button class="nav-tab active" data-target="menu-view">Menu</button>
+                <button class="nav-tab" data-target="about-view">About Us</button>
+                <button class="nav-tab" data-target="contact-view">Contact Us</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- Menu View -->
+        <section id="menu-view" class="view-section active">
+            
+            <!-- Hero Slideshow -->
+            <div class="hero-section">
+                <div class="hero-slider" id="hero-slider">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students 1" class="hero-slide active">
+                    <img src="https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&w=1200&q=80" alt="Students 2" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Students 3" class="hero-slide">
+                    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=80" alt="Students 4" class="hero-slide">
+                </div>
+                <div class="hero-overlay-text">
+                    <h2>Serving Coffee and inclusivity</h2>
+                </div>
+            </div>
+            
+            <div class="category-section">
+                <h2 class="category-title">Beverages</h2>
+                <div class="product-grid" id="beverages-grid">
+                    <!-- Products injected by JS -->
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h2 class="category-title">Pastries</h2>
+                <div class="product-grid" id="pastries-grid">
+                    <!-- Products injected by JS -->
+                </div>
+            </div>
+            
+            <div class="spacer-bottom"></div>
+        </section>
+
+        <!-- About Us View -->
+        <section id="about-view" class="view-section">
+            <div class="content-card">
+                <h2>Welcome to SNED CAFE</h2>
+                <p>Welcome to SNED CAFE, the official coffee shop and pastry corner of FGNMHS Senior High School. We believe that great ideas are born over great coffee. Our mission is to provide students, teachers, and guests with premium, handcrafted beverages and freshly baked pastries in a warm, welcoming environment.</p>
+                <p>Every cup we serve is made with love, and every pastry is crafted to perfection. Whether you need a quick morning boost before class, a cozy spot to study, or a place to unwind, SNED CAFE is here for you.</p>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Cafe Interior">
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us View -->
+        <section id="contact-view" class="view-section">
+            <div class="content-card contact-grid">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>Have questions, suggestions, or just want to say hi? Reach out to us!</p>
+                    <ul class="contact-details">
+                        <li><i class="ph ph-map-pin"></i> FGNMHS SHS Campus, Main Building</li>
+                        <li><i class="ph ph-envelope"></i> hello@snedcafe.edu.ph</li>
+                        <li><i class="ph ph-phone"></i> +63 912 345 6789</li>
+                    </ul>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contact-form" class="contact-form">
+                        <div class="input-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required placeholder="Your name">
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required placeholder="Your email address">
+                        </div>
+                        <div class="input-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required placeholder="How can we help you?" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart" id="floating-cart-btn">
+        <div class="cart-icon-wrapper">
+            <i class="ph ph-shopping-bag"></i>
+            <span class="cart-badge" id="cart-badge">0</span>
+        </div>
+        <span class="cart-total-preview" id="cart-total-preview">₱0.00</span>
+    </button>
+
+    <!-- Cart Slide-out Panel -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-btn" id="close-cart-btn"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Cart items injected by JS -->
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₱0.00</span>
+            </div>
+            <div class="cart-summary-row total">
+                <span>Total</span>
+                <span id="cart-total">₱0.00</span>
+            </div>
+            <button class="btn btn-checkout" id="checkout-btn" disabled>Proceed to Checkout</button>
+        </div>
+    </aside>
+
+    <!-- Receipt Modal -->
+    <div class="modal-overlay" id="receipt-modal">
+        <div class="receipt-card">
+            <div class="receipt-header">
+                <h3>SNED CAFE</h3>
+                <p>FGNMHS SHS</p>
+                <div class="receipt-meta">
+                    <p>Order #: <span id="receipt-order-no"></span></p>
+                    <p>Date: <span id="receipt-date"></span></p>
+                </div>
+            </div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-items" id="receipt-items-container">
+                <!-- Receipt items injected by JS -->
+            </div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-total-row">
+                <span>TOTAL</span>
+                <span id="receipt-total-amount"></span>
+            </div>
+            <div class="receipt-footer">
+                <p>Thank you for your purchase!</p>
+                <div class="barcode">|| |||| | | ||| || |||</div>
+                <div class="receipt-actions">
+                    <button class="btn btn-secondary" id="save-pdf-btn">Save as PDF</button>
+                    <button class="btn btn-primary" id="new-order-btn">Start New Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="product-detail-card">
+            <button class="close-btn" id="close-product-modal-btn"><i class="ph ph-x"></i></button>
+            <img src="" alt="" class="detail-img" id="detail-img">
+            <div class="detail-info">
+                <h3 class="detail-name" id="detail-name"></h3>
+                <p class="detail-price" id="detail-price"></p>
+                <p class="detail-desc" id="detail-desc"></p>
+                <button class="btn btn-primary" id="detail-add-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
