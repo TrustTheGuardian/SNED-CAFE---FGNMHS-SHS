@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNED CAFE - FGNMHS SHS</title>
+
     <meta name="description" content="SNED CAFE - FGNMHS SHS Kiosk Application">
-    
+
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+
     <!-- Phosphor Icons for modern icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
     <!-- html2pdf.js for Receipt Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
+    <!-- html2canvas for Image Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Navigation / Header -->
     <header class="header">
         <div class="header-container">
-            <h1 class="brand-title">SNED CAFE <span>FGNMHS SHS</span></h1>
+            <h1 class="brand-title">
+                <a href="#" class="brand-logo-link"
+                    onclick="event.preventDefault(); document.querySelector('.nav-tab[data-target=\'menu-view\']').click();">
+                    <img src="images/logo/Screenshot_2026-10-07_151650-removebg-preview.png" alt="SNED CAFE Logo"
+                        class="brand-logo">
+                </a>
+            </h1>
             <nav class="nav-menu">
                 <button class="nav-tab active" data-target="menu-view">Menu</button>
                 <button class="nav-tab" data-target="about-view">About Us</button>
@@ -34,23 +45,33 @@
 
     <!-- Main Content Area -->
     <main class="main-content">
-        
+
         <!-- Menu View -->
         <section id="menu-view" class="view-section active">
-            
+
             <!-- Hero Slideshow -->
             <div class="hero-section">
                 <div class="hero-slider" id="hero-slider">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students 1" class="hero-slide active">
-                    <img src="https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&w=1200&q=80" alt="Students 2" class="hero-slide">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Students 3" class="hero-slide">
-                    <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=80" alt="Students 4" class="hero-slide">
+                    <img src="images/beverages/americano.jpg" alt="Students 1" class="hero-slide active">
+                    <img src="images/beverages/cafe.jpg" alt="Students 2" class="hero-slide">
+                    <img src="images/beverages/chocolate.jpg" alt="Students 3" class="hero-slide">
+                    <img src="images/beverages/salt.jpg" alt="Students 4" class="hero-slide">
+                    <img src="images/beverages/strawberry.jpg" alt="Students 5" class="hero-slide">
                 </div>
                 <div class="hero-overlay-text">
                     <h2>Serving Coffee and inclusivity</h2>
                 </div>
             </div>
-            
+
+            <!-- Operating Hours Banner -->
+            <div class="operating-hours-banner">
+                <i class="ph ph-clock"></i>
+                <div class="hours-text">
+                    <span class="days">Monday to Friday</span>
+                    <span class="time">8:00am to 2:00pm</span>
+                </div>
+            </div>
+
             <div class="category-section">
                 <h2 class="category-title">Beverages</h2>
                 <div class="product-grid" id="beverages-grid">
@@ -64,18 +85,107 @@
                     <!-- Products injected by JS -->
                 </div>
             </div>
-            
+
             <div class="spacer-bottom"></div>
         </section>
 
         <!-- About Us View -->
         <section id="about-view" class="view-section">
-            <div class="content-card">
-                <h2>Welcome to SNED CAFE</h2>
-                <p>Welcome to SNED CAFE, the official coffee shop and pastry corner of FGNMHS Senior High School. We believe that great ideas are born over great coffee. Our mission is to provide students, teachers, and guests with premium, handcrafted beverages and freshly baked pastries in a warm, welcoming environment.</p>
-                <p>Every cup we serve is made with love, and every pastry is crafted to perfection. Whether you need a quick morning boost before class, a cozy spot to study, or a place to unwind, SNED CAFE is here for you.</p>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Cafe Interior">
+            <div class="content-card unified-about-card">
+
+                <!-- Section 1: Welcome -->
+                <div class="about-section welcome-section">
+                    <h2>Welcome to SNED CAFE</h2>
+                    <div class="about-image about-slider">
+                        <img src="images/students/40ad5f7a-88ca-4558-a391-417e50dec2e5.jpg" alt="Students 1"
+                            class="about-slide active">
+                        <img src="images/students/85081af0-12ad-4b4c-a134-10227f1b338d.jpg" alt="Students 2"
+                            class="about-slide">
+                        <img src="images/students/d901300f-1a18-49a1-908e-58671036c600.jpg" alt="Students 3"
+                            class="about-slide">
+                        <img src="images/students/de93951c-eaea-4ddf-a214-169fe3b35cfb.jpg" alt="Students 4"
+                            class="about-slide">
+                    </div>
+                    <div class="card-text">
+                        <p>Welcome to SNED CAFE, the official coffee shop and pastry corner of <strong>FGNMHS Senior
+                                High School</strong>. We believe that great ideas are born over great coffee. Our
+                            mission is to provide students, teachers, and guests with premium, handcrafted beverages and
+                            freshly baked pastries in a warm, welcoming environment.</p>
+                        <p>Every cup we serve is made with love, and every pastry is crafted to perfection. Whether you
+                            need a quick morning boost before class, a cozy spot to study, or a place to unwind, SNED
+                            CAFE is here for you.</p>
+                    </div>
+                </div>
+
+                <hr class="about-divider">
+
+                <!-- Section 2: Rationale -->
+                <div class="about-section rationale-section">
+                    <h2>Rationale</h2>
+                    <div class="about-image about-slider">
+                        <img src="images/teachers/teacher1.jpg" alt="Teacher 1" class="about-slide active">
+                        <img src="images/teachers/teacher2.jpg" alt="Teacher 2" class="about-slide">
+                        <img src="images/teachers/teacher3.jpg" alt="Teacher 3" class="about-slide">
+                        <img src="images/teachers/teacher4.jpg" alt="Teacher 4" class="about-slide">
+                        <img src="images/teachers/teacher5.jpg" alt="Teacher 5" class="about-slide">
+                    </div>
+                    <div class="card-text">
+                        <p>SNED Café was established in response to the challenges of providing accessible and
+                            meaningful Work Immersion opportunities for <strong>learners with special educational
+                                needs</strong>. The required <strong>360-hour Work Immersion</strong>, limited SNEd
+                            teachers, and concerns of external industries regarding accessibility, communication,
+                            safety, and supervision created barriers to meaningful workplace placement.</p>
+                        <p>Established in <strong>December 2023</strong>, SNED Café initially operated as a simple
+                            booth and later developed into a physical school-based café and simulated workplace. It
+                            provides learners with a safe and supportive environment where they can develop soft
+                            skills such as <strong>communication, teamwork, responsibility, and work
+                                ethics</strong>; hard skills such as <strong>food preparation, sanitation, customer
+                                service, and café operations</strong>; and technological skills through digital
+                            tools, financial recording, and basic web development.</p>
+                        <p>The café also provides authentic community and workplace experiences through school and
+                            Division-level events, benchmarking activities, and interactions with nearby businesses.
+                            Its income supports learning materials and learner needs, while the skills gained help
+                            prepare learners for employment, entrepreneurship, and greater independence. Thus, SNED
+                            Café serves as a sustainable and inclusive approach to Work Immersion that transforms
+                            workplace barriers into meaningful opportunities for learning, participation,
+                            productivity, and empowerment.</p>
+                    </div>
+                </div>
+
+                <hr class="about-divider">
+
+                <!-- Section 3: General Objectives -->
+                <div class="about-section">
+                    <h2>General Objectives</h2>
+                    <div class="card-body right-image-layout">
+                        <div class="card-text">
+                            <p>General Objective: To establish and sustain an inclusive, accessible, and sustainable
+                                school-based simulated workplace that provides <strong>SNED learners</strong> with
+                                meaningful Work Immersion and livelihood experiences while developing their soft, hard,
+                                technological, functional, and employability skills toward greater independence,
+                                participation, and future employment or entrepreneurship.</p>
+                            <p><strong>1.</strong> To establish and sustain an <strong>inclusive school-based simulated
+                                    workplace</strong> for accessible Work Immersion and livelihood training.</p>
+                            <p><strong>2.</strong> To engage <strong>SNED learners</strong> in appropriate café tasks
+                                such as <strong>food preparation, sanitation, customer service, teamwork, communication,
+                                    and entrepreneurship</strong> based on their abilities.</p>
+                            <p><strong>3.</strong> To develop <strong>functional and employability skills</strong>
+                                through regular hands-on workplace routines and responsibilities.</p>
+                            <p><strong>4.</strong> To generate and <strong>reinvest income</strong> for ingredients,
+                                materials, supplies, and other SNED skills-development activities.</p>
+                            <p><strong>5.</strong> To provide an <strong>inclusive Work Immersion alternative</strong>
+                                that addresses accessibility, supervision, and industry-placement barriers while
+                                promoting independence and employability.</p>
+                        </div>
+                        <div class="about-image about-slider">
+                            <img src="images/objectives/2cafcc2b-f801-404c-a23f-719811c4a909.jpg" alt="Objective 1"
+                                class="about-slide active">
+                            <img src="images/objectives/042acf07-7aa4-4983-80c4-170f2233a7e4.jpg" alt="Objective 2"
+                                class="about-slide">
+                            <img src="images/objectives/57910bbb-9eab-43f6-bb0d-d1b7e2361e2a.jpg" alt="Objective 3"
+                                class="about-slide">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -88,8 +198,8 @@
                     <p>Have questions, suggestions, or just want to say hi? Reach out to us!</p>
                     <ul class="contact-details">
                         <li><i class="ph ph-map-pin"></i> FGNMHS SHS Campus, Main Building</li>
-                        <li><i class="ph ph-envelope"></i> hello@snedcafe.edu.ph</li>
-                        <li><i class="ph ph-phone"></i> +63 912 345 6789</li>
+                        <li><i class="ph ph-envelope"></i> elaine.bayudan@deped.gov.ph</li>
+                        <li><i class="ph ph-phone"></i> +63 999 717 0117</li>
                     </ul>
                 </div>
                 <div class="contact-form-container">
@@ -110,8 +220,98 @@
                     </form>
                 </div>
             </div>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>When was SNED Café established?</summary>
+                        <div class="faq-answer">
+                            SNED Café was established in December 2023, initially operating as a simple café booth
+                            before developing into a physical café environment.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What is the main purpose of SNED Café?</summary>
+                        <div class="faq-answer">
+                            Its main purpose is to provide accessible and meaningful Work Immersion experiences while
+                            developing learners’ soft skills, hard skills, technological skills, and employability.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Do learners participate in activities outside the school?</summary>
+                        <div class="faq-answer">
+                            Yes. Learners provide refreshments during Division-level events, such as Teachers’ Day
+                            celebrations, and benchmarking activities, allowing them to practice their skills in
+                            authentic settings.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How does SNED Café involve the community?</summary>
+                        <div class="faq-answer">
+                            Learners purchase ingredients from nearby stores and interact with local businesses,
+                            including bakeries, to learn about food production, baking, purchasing, and business
+                            operations.
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How does SNED Café benefit learners’ families?</summary>
+                        <div class="faq-answer">
+                            The project provides learners with opportunities to earn from their skills, while proceeds
+                            may also help support educational needs, including graduation-related expenses, helping ease
+                            the financial burden on families.
+                        </div>
+                    </details>
+                </div>
+            </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- Column 1: Location & Map -->
+            <div class="footer-col footer-location">
+                <h3>SNED CAFE</h3>
+                <p>Francisco G. Nepomuceno Memorial High School (FGNMHS) SHS Campus, Angeles City, Pampanga.</p>
+                <div class="footer-map-container">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Francisco%20G.%20Nepomuceno%20Memorial%20High%20School,%20Angeles%20City&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="180" style="border:0; border-radius: 12px; margin: 15px 0;"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <a href="https://www.google.com/maps/place/Francisco+G.+Nepomuceno+Memorial+High+School/@15.1517742,120.6103781,18z/data=!4m6!3m5!1s0x3396f21abd9df171:0x494aa8f8a06ef1cf!8m2!3d15.1522622!4d120.6089599!16s%2Fg%2F1tgw7fm1"
+                    target="_blank" class="btn btn-outline-light"><i class="ph ph-map-pin"></i> Get Directions</a>
+            </div>
+
+            <!-- Column 2: Contact & Hours -->
+            <div class="footer-col footer-contact">
+                <h3>Contact & Hours</h3>
+                <ul class="footer-info-list">
+                    <li><i class="ph ph-envelope-simple"></i> elaine.bayudan@deped.gov.ph</li>
+                    <li><i class="ph ph-phone"></i> +63 999 717 0117</li>
+                    <li><i class="ph ph-clock"></i> Monday to Friday | 8:00 AM - 2:00 PM</li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Quick Links -->
+            <div class="footer-col footer-links">
+                <h3>Quick Links</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#" class="nav-tab" data-target="menu-view">Menu</a></li>
+                    <li><a href="#" class="nav-tab" data-target="about-view">About Us</a></li>
+                    <li><a href="#" class="nav-tab" data-target="about-view">FAQs</a></li>
+                    <li><a href="#" class="nav-tab" data-target="about-view">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 SNED CAFE. All rights reserved. Empowering learners with special educational needs through
+                Work Immersion.</p>
+        </div>
+    </footer>
 
     <!-- Floating Cart Button -->
     <button class="floating-cart" id="floating-cart-btn">
@@ -170,7 +370,7 @@
                 <p>Thank you for your purchase!</p>
                 <div class="barcode">|| |||| | | ||| || |||</div>
                 <div class="receipt-actions">
-                    <button class="btn btn-secondary" id="save-pdf-btn">Save as PDF</button>
+                    <button class="btn btn-secondary" id="save-img-btn">Save as Image</button>
                     <button class="btn btn-primary" id="new-order-btn">Start New Order</button>
                 </div>
             </div>
@@ -196,4 +396,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

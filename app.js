@@ -9,67 +9,83 @@ const products = [
     // Beverages
     {
         id: 'b1',
-        name: 'Iced Caramel Macchiato',
+        name: 'Iced Americano',
         category: 'beverages',
-        price: 120.00,
-        image: 'https://images.unsplash.com/photo-1572442388796-11668a67efca?auto=format&fit=crop&w=600&q=80',
+        price: 45.00,
+        image: 'images/beverages/americano.jpg',
         description: 'A refreshing blend of espresso, milk, and vanilla syrup, poured over ice and topped with a sweet caramel drizzle.'
     },
     {
         id: 'b2',
-        name: 'Classic Cold Brew',
+        name: 'Iced Chocolate',
         category: 'beverages',
-        price: 100.00,
-        image: 'https://images.unsplash.com/photo-1461023058943-07cb14a601dc?auto=format&fit=crop&w=600&q=80',
+        price: 50.00,
+        image: 'images/beverages/chocolate.jpg',
         description: 'Smooth, bold, and slow-steeped for 18 hours to perfection. A crisp and deeply flavorful coffee experience.'
     },
     {
         id: 'b3',
-        name: 'Matcha Green Tea Latte',
+        name: 'Cafe Latte',
         category: 'beverages',
-        price: 140.00,
-        image: 'https://images.unsplash.com/photo-1536514072410-5019a3c69182?auto=format&fit=crop&w=600&q=80',
+        price: 50.00,
+        image: 'images/beverages/cafe.jpg',
         description: 'Premium matcha green tea blended with creamy milk. Earthy, slightly sweet, and utterly satisfying.'
     },
     {
         id: 'b4',
-        name: 'Hot Cappuccino',
+        name: 'Spanish Latte',
         category: 'beverages',
-        price: 110.00,
-        image: 'https://images.unsplash.com/photo-1534687941688-641fcbb1a498?auto=format&fit=crop&w=600&q=80',
+        price: 55.00,
+        image: 'images/beverages/spanish.jpg',
+        description: 'Rich espresso balanced with steamed milk and a thick layer of foam. A comforting classic.'
+    },
+    {
+        id: 'b5',
+        name: 'Sea Salt Latte',
+        category: 'beverages',
+        price: 55.00,
+        image: 'images/beverages/salt.jpg',
+        description: 'Rich espresso balanced with steamed milk and a thick layer of foam. A comforting classic.'
+    },
+    {
+        id: 'b6',
+        name: 'Strawberry Latte',
+        category: 'beverages',
+        price: 55.00,
+        image: 'images/beverages/strawberry.jpg',
         description: 'Rich espresso balanced with steamed milk and a thick layer of foam. A comforting classic.'
     },
     // Pastries
     {
         id: 'p1',
-        name: 'Butter Croissant',
+        name: 'Crinkles',
         category: 'pastries',
-        price: 75.00,
-        image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80',
+        price: 15.00,
+        image: 'images/pastries/crinkles.jpg',
         description: 'Flaky, buttery, and baked fresh daily. Perfect for pairing with your morning coffee.'
     },
     {
         id: 'p2',
-        name: 'Blueberry Muffin',
+        name: 'Oat Cookies',
         category: 'pastries',
-        price: 85.00,
-        image: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=600&q=80',
+        price: 15.00,
+        image: 'images/pastries/cookies.jpg',
         description: 'Moist and tender muffin bursting with real blueberries and topped with a streusel crumb.'
     },
     {
         id: 'p3',
-        name: 'Chocolate Chip Cookie',
+        name: 'Slice of Cake',
         category: 'pastries',
-        price: 50.00,
-        image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80',
+        price: 60.00,
+        image: 'images/pastries/cake.jpg',
         description: 'Chewy on the inside, crispy on the outside, packed with rich chocolate chips.'
     },
     {
         id: 'p4',
-        name: 'Fudgy Brownie',
+        name: 'Banana Muffin',
         category: 'pastries',
-        price: 65.00,
-        image: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=600&q=80',
+        price: 20.00,
+        image: 'images/pastries/banana.jpg',
         description: 'Decadent, dense chocolate brownie that melts in your mouth.'
     }
 ];
@@ -113,7 +129,7 @@ const receiptDate = document.getElementById('receipt-date');
 const receiptItemsContainer = document.getElementById('receipt-items-container');
 const receiptTotalAmount = document.getElementById('receipt-total-amount');
 const newOrderBtn = document.getElementById('new-order-btn');
-const savePdfBtn = document.getElementById('save-pdf-btn');
+const saveImgBtn = document.getElementById('save-img-btn');
 
 const contactForm = document.getElementById('contact-form');
 const toastContainer = document.getElementById('toast-container');
@@ -142,10 +158,28 @@ function startHeroSlider() {
     }, 4000);
 }
 
+// About Sliders Logic
+function startAboutSliders() {
+    const aboutSliders = document.querySelectorAll('.about-slider');
+    aboutSliders.forEach(slider => {
+        const slides = slider.querySelectorAll('.about-slide');
+        if (slides.length > 1) {
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 3000 + Math.random() * 2000); // randomize slightly to offset sliders
+        }
+    });
+}
+
 // Navigation Handler
 function setupNavigation() {
     navTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault(); // crucial for footer <a> links
+
             // Remove active class from all
             navTabs.forEach(t => t.classList.remove('active'));
             views.forEach(v => v.classList.remove('active'));
@@ -154,7 +188,7 @@ function setupNavigation() {
             tab.classList.add('active');
             const targetId = tab.getAttribute('data-target');
             document.getElementById(targetId).classList.add('active');
-            
+
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -184,7 +218,7 @@ function renderProducts() {
 }
 
 // Product Modal Logic
-window.openProductModal = function(productId) {
+window.openProductModal = function (productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
@@ -193,7 +227,7 @@ window.openProductModal = function(productId) {
     detailName.textContent = product.name;
     detailPrice.textContent = formatCurrency(product.price);
     detailDesc.textContent = product.description;
-    
+
     // Set up add to cart button in modal
     detailAddBtn.onclick = () => {
         addToCart(product.id);
@@ -213,7 +247,7 @@ productModal.addEventListener('click', (e) => {
 });
 
 // Cart Logic
-window.addToCart = function(productId) {
+window.addToCart = function (productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
@@ -236,7 +270,7 @@ window.addToCart = function(productId) {
     showToast(`${product.name} added to cart`);
 };
 
-window.changeQuantity = function(productId, delta) {
+window.changeQuantity = function (productId, delta) {
     const itemIndex = cart.findIndex(item => item.id === productId);
     if (itemIndex > -1) {
         cart[itemIndex].quantity += delta;
@@ -248,7 +282,7 @@ window.changeQuantity = function(productId, delta) {
     }
 };
 
-window.removeFromCart = function(productId) {
+window.removeFromCart = function (productId) {
     cart = cart.filter(item => item.id !== productId);
     saveCart();
     updateCartUI();
@@ -258,10 +292,10 @@ function updateCartUI() {
     // Update Badge & Preview
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
+
     cartBadge.textContent = totalItems;
     cartTotalPreview.textContent = formatCurrency(totalPrice);
-    
+
     // Hide floating btn if empty
     floatingCartBtn.style.display = totalItems > 0 ? 'flex' : 'none';
 
@@ -306,20 +340,20 @@ function closeCart() {
 // Checkout & Receipt
 function handleCheckout() {
     if (cart.length === 0) return;
-    
+
     // Generate receipt data
     const orderNo = Math.floor(100000 + Math.random() * 900000);
-    const date = new Date().toLocaleString('en-US', { 
-        year: 'numeric', month: 'short', day: 'numeric', 
-        hour: '2-digit', minute: '2-digit' 
+    const date = new Date().toLocaleString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
     });
-    
+
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
+
     // Populate receipt UI
     receiptOrderNo.textContent = orderNo;
     receiptDate.textContent = date;
-    
+
     receiptItemsContainer.innerHTML = cart.map(item => `
         <div class="receipt-item-row">
             <span class="receipt-item-qty">${item.quantity}x</span>
@@ -327,43 +361,103 @@ function handleCheckout() {
             <span class="receipt-item-price">${formatCurrency(item.price * item.quantity)}</span>
         </div>
     `).join('');
-    
+
     receiptTotalAmount.textContent = formatCurrency(totalPrice);
-    
-    // Clear cart and show receipt
-    cart = [];
-    saveCart();
-    updateCartUI();
-    
+
+    // DO NOT clear cart here yet. Wait for PDF generation or new order.
     closeCart();
     receiptModal.classList.add('open');
 }
 
 function startNewOrder() {
+    // Clear cart and UI here if not already cleared by PDF save
+    cart = [];
+    saveCart();
+    updateCartUI();
+
     receiptModal.classList.remove('open');
     // Navigate to menu if not already there
     document.querySelector('.nav-tab[data-target="menu-view"]').click();
 }
 
-function saveReceiptAsPDF() {
-    const element = document.querySelector('.receipt-card');
-    
-    // Temporarily hide buttons for the PDF
-    const actions = element.querySelector('.receipt-actions');
-    actions.style.display = 'none';
+async function saveReceiptAsImage() {
+    const originalElement = document.querySelector('.receipt-card');
+    if (!originalElement) return;
 
-    const opt = {
-        margin:       1,
-        filename:     `SNED_CAFE_Receipt_${receiptOrderNo.textContent}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    const originalBtn = document.getElementById('save-img-btn');
+    const originalBtnContent = originalBtn.innerHTML;
 
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Restore buttons after PDF is generated
-        actions.style.display = 'flex';
-    });
+    try {
+        originalBtn.innerHTML = '<i class="ph ph-spinner"></i> Saving...';
+        originalBtn.disabled = true;
+
+        // 1. Create a deep clone of the receipt
+        const clone = originalElement.cloneNode(true);
+
+        // Remove buttons from the clone
+        const actions = clone.querySelector('.receipt-actions');
+        if (actions) actions.remove();
+
+        // 2. Remove any scrolling constraints from the clone
+        clone.style.maxHeight = 'none';
+        clone.style.overflow = 'visible';
+        clone.style.boxShadow = 'none';
+        clone.style.margin = '0';
+        clone.style.width = '100%';
+
+        // 3. Create a clean, unconstrained wrapper for the clone
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'absolute';
+        wrapper.style.top = '0';
+        wrapper.style.left = '0';
+        wrapper.style.width = '400px'; // Typical receipt width
+        wrapper.style.height = 'auto'; // Let it grow as long as needed
+        wrapper.style.zIndex = '-9999';
+        wrapper.style.backgroundColor = '#ffffff';
+
+        wrapper.appendChild(clone);
+        document.body.appendChild(wrapper);
+
+        // 4. Generate Image directly using html2canvas
+        const canvas = await html2canvas(wrapper, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            scrollY: 0,
+            windowWidth: 400
+        });
+
+        // Convert canvas to PNG data URL
+        const imgData = canvas.toDataURL('image/png');
+
+        // Create an invisible download link and click it
+        const link = document.createElement('a');
+        link.download = `SNED_CAFE_Receipt_${receiptOrderNo.textContent}.png`;
+        link.href = imgData;
+        link.click();
+
+        // 5. Clean up
+        document.body.removeChild(wrapper);
+
+        // Clear cart AFTER successful generation
+        cart = [];
+        saveCart();
+        updateCartUI();
+        
+        showToast('Receipt saved as image successfully!');
+        
+        // Optionally, automatically close the modal and start a new order
+        document.getElementById('new-order-btn').click();
+
+    } catch (error) {
+        console.error('Image Generation Error:', error);
+        showToast('Failed to generate receipt. Please try again.');
+    } finally {
+        if (originalBtn) {
+            originalBtn.innerHTML = originalBtnContent;
+            originalBtn.disabled = false;
+        }
+    }
 }
 
 // Forms & Toast
@@ -377,14 +471,14 @@ function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
-    
+
     toastContainer.appendChild(toast);
-    
+
     // Trigger reflow
     void toast.offsetWidth;
-    
+
     toast.classList.add('show');
-    
+
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
@@ -398,7 +492,7 @@ closeCartBtn.addEventListener('click', closeCart);
 cartOverlay.addEventListener('click', closeCart);
 checkoutBtn.addEventListener('click', handleCheckout);
 newOrderBtn.addEventListener('click', startNewOrder);
-savePdfBtn.addEventListener('click', saveReceiptAsPDF);
+saveImgBtn.addEventListener('click', saveReceiptAsImage);
 
 // Init
 function init() {
@@ -406,6 +500,7 @@ function init() {
     renderProducts();
     updateCartUI();
     startHeroSlider();
+    startAboutSliders();
 }
 
 // Run on load
